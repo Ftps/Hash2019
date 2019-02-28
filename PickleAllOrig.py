@@ -13,7 +13,7 @@ def Threeeeeeed(Name):
     #print(ParsedPhotos)
     #print(ParsedTags)
     print(Name)
-    if Name[:-4] != "a_example":
+    if Name[:-4] != "e_shiny_selfies":
         return
         #pass
     print(Name[:-4])
@@ -124,4 +124,5 @@ def Threeeeeeed(Name):
     print(ParsedTags)
 
 #"""
-Threeeeeeed("a_example")
+for Files in os.scandir("Pickles2"):
+    thread.start_new_thread( Threeeeeeed, (Files.name, ) )
