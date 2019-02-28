@@ -10,12 +10,14 @@ if not os.path.isdir("Pickles"):
 for Files in os.scandir('Inputs'):
     #print(ParsedPhotos)
     #print(ParsedTags)
-    if Files.name != "a_example.txt":
-        continue
+    #if Files.name[:-4] != "a_example":
+    #    continue
     print(Files.name[:-4])
     Parsed_Tags_File = open("Pickles/"+Files.name[:-4]+"_ParsedTags",'wb')
     ParsedPhotos_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotos",'wb')
     ParsedPhotosV_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotosV",'wb')
+    ParsedPhotos2_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotos2",'wb')
+    ParsedPhotosV2_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotosV2",'wb')
 
     fd = open("Inputs/"+Files.name, "r")
 
@@ -41,7 +43,9 @@ for Files in os.scandir('Inputs'):
     #print(AllSlides)
 
     ParsedPhotos = list()
+    ParsedPhotos2 = list()
     ParsedPhotosV = list()
+    ParsedPhotosV2 = list()
 
     for Photo in AllPhotos:
         #print([Slide[x+1] for x in range(int(Slide[1])-1)])
@@ -49,12 +53,16 @@ for Files in os.scandir('Inputs'):
         # H == 0  V == 1
         templ.append(0)
         templ.append(1 if Photo[0] == "V" else 0)
+
         if Photo[0] == "V":
             ParsedPhotosV.append(templ+[AddToTag(Photo[x+2]) for x in range(int(Photo[1]))])
+
+            ParsedPhotosV2.append(templ+[{AddToTag(Photo[x+2]) for x in range(int(Photo[1]))}])
         #templ.append(int(Photo[1]))
         ParsedPhotos.append(templ+[AddToTag(Photo[x+2]) for x in range(int(Photo[1]))])
 
-    print(list(range(len(AllTags))))
+        ParsedPhotos2.append(templ+[{AddToTag(Photo[x+2]) for x in range(int(Photo[1]))}])
+
     ParsedTags = [list() for x in range(len(AllTags))]
 
     for Tag in AllTags:
@@ -69,26 +77,36 @@ for Files in os.scandir('Inputs'):
             x+=1
 
 
-    print(AllPhotos)
-    print(AllTags)#Dictionary
-
     pickle.dump(ParsedTags,Parsed_Tags_File)
     Parsed_Tags_File.close()
     pickle.dump(ParsedPhotos,ParsedPhotos_File)
     ParsedPhotos_File.close()
     pickle.dump(ParsedPhotosV,ParsedPhotosV_File)
     ParsedPhotosV_File.close()
+    pickle.dump(ParsedPhotos2,ParsedPhotos2_File)
+    ParsedPhotos_File.close()
+    pickle.dump(ParsedPhotosV2,ParsedPhotosV2_File)
+    ParsedPhotosV_File.close()
+    """
+    print(AllPhotos)
+    print(AllTags)#Dictionary
 
     Parsed_Tags_File = open("Pickles/"+Files.name[:-4]+"_ParsedTags",'rb')
     ParsedPhotos_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotos",'rb')
     ParsedPhotosV_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotosV",'rb')
+    ParsedPhotos2_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotos2",'rb')
+    ParsedPhotosV2_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotosV2",'rb')
 
     ParsedTags = pickle.load(Parsed_Tags_File, encoding='bytes')
     ParsedPhotos = pickle.load(ParsedPhotos_File, encoding='bytes')
     ParsedPhotosV = pickle.load(ParsedPhotosV_File, encoding='bytes')
+    ParsedPhotos2 = pickle.load(ParsedPhotos2_File, encoding='bytes')
+    ParsedPhotosV2 = pickle.load(ParsedPhotosV2_File, encoding='bytes')
+
     print(ParsedPhotos)
+    print(ParsedPhotos2)
     print(ParsedPhotosV)
+    print(ParsedPhotosV2)
     print(ParsedTags)
 
-
-    sys.exit(0)
+"""
