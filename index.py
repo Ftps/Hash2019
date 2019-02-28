@@ -32,9 +32,6 @@ for Slide in AllSlides:
     #print([Slide[x+1] for x in range(int(Slide[1])-1)])
     templ = list(Slide[0])
     templ.append(Slide[1])
-    L = [Slide[x+2] for x in range(int(Slide[1]))]
-    templ.append(L)
-    print(templ)
-    ParsedSlides.append(list(Slide[0]).append([Slide[x+1] for x in range(int(Slide[1])-1)]))
+    ParsedSlides.append(templ+[(Slide[x+2]) for x in range(int(Slide[1]))])
 
 print(ParsedSlides)
