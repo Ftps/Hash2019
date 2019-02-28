@@ -30,6 +30,7 @@ AllPhotos = list(map(lambda x: x.split(" "), FileLines[1:(len(FileLines)-1)]))
 #print(AllSlides)
 
 ParsedPhotos = list()
+ParsedPhotosV = list()
 
 for Photo in AllPhotos:
     #print([Slide[x+1] for x in range(int(Slide[1])-1)])
@@ -37,6 +38,8 @@ for Photo in AllPhotos:
     # H == 0  V == 1
     templ.append(0)
     templ.append(1 if Photo[0] == "V" else 0)
+    if Photo[0] == "V":
+        ParsedPhotosV.append(templ+[AddToTag(Photo[x+2]) for x in range(int(Photo[1]))])
     #templ.append(int(Photo[1]))
     ParsedPhotos.append(templ+[AddToTag(Photo[x+2]) for x in range(int(Photo[1]))])
 
@@ -59,4 +62,5 @@ for Tag in AllTags:
         x+=1
 
 print(ParsedPhotos)
+print(ParsedPhotosV)
 print(ParsedTags)
