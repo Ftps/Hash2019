@@ -13,17 +13,13 @@ print(FileLines)
 Dic = OrderedDict()
 
 def AddToDict(Tag):
-    print("Tag: "+str(Tag))
     if Tag in list(Dic.keys()):
-        print("Tag already exists, ID: "+str(Dic[Tag]))
         return Dic[Tag]
     else:
         if len(list(Dic.keys())):
-            print("Is not empty, adding as "+str(Dic[list(Dic.keys())[-1]]+1))
             Dic[Tag] = Dic[list(Dic.keys())[-1]]+1
             return Dic[Tag]
         else:
-            print("IS empty, adding as 0")
             Dic[Tag] = 0
             return 0
 
