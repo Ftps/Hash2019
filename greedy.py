@@ -43,7 +43,7 @@ for i in range(len(ParsedPhotos2)-1):
                 if x[0] == 1:
                     continue;
                 if slides[i-k-1] is int:
-                    scores.append(score(ParsedPhotos2[slides[i-k-1][2], x[2].union(ParsedPhotos2[slides[i-k][0]][2])) + x[1]/MAX)
+                    scores.append(score(ParsedPhotos2[slides[i-k-1]][2], x[2].union( ParsedPhotos2[slides[i-k][0]][2] ) ) + x[1]/MAX)
                 else:
                     scores.append(score(ParsedPhotos2[slides[i-k-1][0]][2].union(ParsedPhotos2[slides[i-k-1][1]][2]), x[2].union(ParsedPhotos2[slides[i-k][0]][2])) + x[1]/MAX)
 

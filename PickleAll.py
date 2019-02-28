@@ -124,5 +124,4 @@ def Threeeeeeed(Name):
     print(ParsedTags)
 
 #"""
-for Files in os.scandir('Inputs'):
-    thread.start_new_thread( Threeeeeeed, (Files.name, ))
+Threeeeeeed("a_example")
