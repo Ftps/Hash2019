@@ -3,23 +3,27 @@ import pickle
 import sys
 import os
 from collections import OrderedDict
+import _thread as thread
 
-if not os.path.isdir("Pickles"):
-    os.mkdir("Pickles")
 
-for Files in os.scandir('Inputs'):
+if not os.path.isdir("Pickles2"):
+    os.mkdir("Pickles2")
+
+def Threeeeeeed(Name):
     #print(ParsedPhotos)
     #print(ParsedTags)
-    #if Files.name[:-4] != "a_example":
-    #    continue
-    print(Files.name[:-4])
-    Parsed_Tags_File = open("Pickles/"+Files.name[:-4]+"_ParsedTags",'wb')
-    ParsedPhotos_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotos",'wb')
-    ParsedPhotosV_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotosV",'wb')
-    ParsedPhotos2_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotos2",'wb')
-    ParsedPhotosV2_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotosV2",'wb')
+    print(Name)
+    if Name[:-4] != "a_example":
+        return
+        #pass
+    print(Name[:-4])
+    Parsed_Tags_File = open("Pickles2/"+Name[:-4]+"_ParsedTags",'wb')
+    ParsedPhotos_File = open("Pickles2/"+Name[:-4]+"_ParsedPhotos",'wb')
+    ParsedPhotosV_File = open("Pickles2/"+Name[:-4]+"_ParsedPhotosV",'wb')
+    ParsedPhotos2_File = open("Pickles2/"+Name[:-4]+"_ParsedPhotos2",'wb')
+    ParsedPhotosV2_File = open("Pickles2/"+Name[:-4]+"_ParsedPhotosV2",'wb')
 
-    fd = open("Inputs/"+Files.name, "r")
+    fd = open("Inputs/"+Name, "r")
 
     FileLines = fd.read().split('\n')
     #print(FileLines)
@@ -50,14 +54,17 @@ for Files in os.scandir('Inputs'):
     for Photo in AllPhotos:
         #print([Slide[x+1] for x in range(int(Slide[1])-1)])
         templ = list()
+        templv = list()
         # H == 0  V == 1
         templ.append(0)
         templ.append(1 if Photo[0] == "V" else 0)
+        templv.append(0)
+        templv.append(len(ParsedPhotos))
 
         if Photo[0] == "V":
-            ParsedPhotosV.append(templ+[AddToTag(Photo[x+2]) for x in range(int(Photo[1]))])
+            ParsedPhotosV.append(templv+[AddToTag(Photo[x+2]) for x in range(int(Photo[1]))])
 
-            ParsedPhotosV2.append(templ+[{AddToTag(Photo[x+2]) for x in range(int(Photo[1]))}])
+            ParsedPhotosV2.append(templv+[{AddToTag(Photo[x+2]) for x in range(int(Photo[1]))}])
         #templ.append(int(Photo[1]))
         ParsedPhotos.append(templ+[AddToTag(Photo[x+2]) for x in range(int(Photo[1]))])
 
@@ -88,14 +95,16 @@ for Files in os.scandir('Inputs'):
     pickle.dump(ParsedPhotosV2,ParsedPhotosV2_File)
     ParsedPhotosV_File.close()
     """
+    print("All Photos")
     print(AllPhotos)
+    print("All Tags")#Dictionary
     print(AllTags)#Dictionary
 
-    Parsed_Tags_File = open("Pickles/"+Files.name[:-4]+"_ParsedTags",'rb')
-    ParsedPhotos_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotos",'rb')
-    ParsedPhotosV_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotosV",'rb')
-    ParsedPhotos2_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotos2",'rb')
-    ParsedPhotosV2_File = open("Pickles/"+Files.name[:-4]+"_ParsedPhotosV2",'rb')
+    Parsed_Tags_File = open("Pickles2/"+Name[:-4]+"_ParsedTags",'rb')
+    ParsedPhotos_File = open("Pickles2/"+Name[:-4]+"_ParsedPhotos",'rb')
+    ParsedPhotosV_File = open("Pickles2/"+Name[:-4]+"_ParsedPhotosV",'rb')
+    ParsedPhotos2_File = open("Pickles2/"+Name[:-4]+"_ParsedPhotos2",'rb')
+    ParsedPhotosV2_File = open("Pickles2/"+Name[:-4]+"_ParsedPhotosV2",'rb')
 
     ParsedTags = pickle.load(Parsed_Tags_File, encoding='bytes')
     ParsedPhotos = pickle.load(ParsedPhotos_File, encoding='bytes')
@@ -103,10 +112,17 @@ for Files in os.scandir('Inputs'):
     ParsedPhotos2 = pickle.load(ParsedPhotos2_File, encoding='bytes')
     ParsedPhotosV2 = pickle.load(ParsedPhotosV2_File, encoding='bytes')
 
+    print("Parsed Photos")
     print(ParsedPhotos)
+    print("Parsed Photos 2")
     print(ParsedPhotos2)
+    print("Parsed Photos V")
     print(ParsedPhotosV)
+    print("Parsed Photos V2")
     print(ParsedPhotosV2)
+    print("Parsed Tags")
     print(ParsedTags)
 
-"""
+#"""
+for Files in os.scandir('Inputs'):
+    thread.start_new_thread( Threeeeeeed, (Files.name, ))
