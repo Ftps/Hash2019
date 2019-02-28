@@ -25,20 +25,20 @@ def AddToDict(Tag):
 
 FotoAmmount = int(FileLines[0])
 
-AllSlides = list(map(lambda x: x.split(" "), FileLines[1:(len(FileLines)-1)]))
+AllPhotos = list(map(lambda x: x.split(" "), FileLines[1:(len(FileLines)-1)]))
 
 #print(AllSlides)
 
-ParsedSlides = list()
+ParsedPhotos = list()
 
 ParsedTags = list()
 
-for Slide in AllSlides:
+for Photo in AllPhotos:
     #print([Slide[x+1] for x in range(int(Slide[1])-1)])
     templ = list()
     # H == 0  V == 1
-    templ.append(1 if Slide[0] == "V" else 0)
-    templ.append(int(Slide[1]))
-    ParsedSlides.append(templ+[AddToDict(Slide[x+2]) for x in range(int(Slide[1]))])
+    templ.append(1 if Photo[0] == "V" else 0)
+    templ.append(int(Photo[1]))
+    ParsedPhotos.append(templ+[AddToDict(Photo[x+2]) for x in range(int(Photo[1]))])
 #print(Dic)
-print(ParsedSlides)
+print(ParsedPhotos)
