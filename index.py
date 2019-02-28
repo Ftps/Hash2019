@@ -35,16 +35,4 @@ for Slide in AllSlides:
     ParsedSlides.append(templ+[(Slide[x+2]) for x in range(int(Slide[1]))])
     print(AllSlides)
 
-slides = [1, 2, [3,4], 5, [6,7]]
-
-f = open("sadsd", "w")
-
-f.write('{}\n'.format(len(slides)))
-
-for i in slides:
-	try:
-		f.write('{} {}\n'.format(i[0], i[1]))
-	except:
-		#Int
-		f.write('{}\n'.format(i))
 print(ParsedSlides)
