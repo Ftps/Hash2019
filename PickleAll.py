@@ -10,7 +10,7 @@ if not os.path.isdir("Pickles2"):
 for Files in os.scandir('Inputs'):
     #print(ParsedPhotos)
     #print(ParsedTags)
-    if Files.name[:-4] != "a_example":
+    if Files.name[:-4] != "e_shiny_selfies":
         continue
     print(Files.name[:-4])
     Parsed_Tags_File = open("Pickles2/"+Files.name[:-4]+"_ParsedTags",'wb')
