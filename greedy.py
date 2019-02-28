@@ -2,6 +2,7 @@
 
 from index.py import *
 from output.py import *
+from math import modf
 
 MAX = 100000
 
@@ -20,12 +21,11 @@ def score(photo1, photo2):
 
 cur = 0
 ParsedPhotos[0][0] = 1
-slides = [1]
+slides = [0]
 
-for i in range(len(ParsedPhotos-1)):
+for i in range(len(ParsedPhotos)-1):
     scores = []
-    photo = []
-    if ParsedPhotos[cur][0]:
+    if ParsedPhotos[cur][1]:
         pass
     else:
         for x in range(len(ParsedPhotos[cur])-2):
@@ -33,5 +33,7 @@ for i in range(len(ParsedPhotos-1)):
             for y in ParsedTags[tag]):
                 if ParsedPhotos[y][0]:
                     continue
-                scores.append(score(ParsedPhotos[y], ParsedPhotos[cur]))
-                photo.append(y)
+                scores.append(score(ParsedPhotos[y], ParsedPhotos[cur])+y/MAX)
+
+        slides.append(modf(max(scores))[0]*MAX)
+        ParsedPhotos[slides[i+1]][0] = 1
